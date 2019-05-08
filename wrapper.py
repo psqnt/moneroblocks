@@ -2,9 +2,6 @@
 moneroblocks.info api wrapper
 
 http://moneroblocks.info/api/
-
-
-http://moneroblocks.info/api/{method}/{param1}/{param2}/
 """
 
 import requests
@@ -16,7 +13,7 @@ class MoneroBlocks:
     """
 
     def __init__(self):
-        self.base_url = 'http://moneroblocks.info/api/'
+        self.base_url = 'https://moneroblocks.info/api/'
 
     def _get_current_block_height(self):
         """
