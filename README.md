@@ -1,7 +1,8 @@
 # moneroblocks_api_wrapper
 A Python wrapper class for moneroblocks.info Monero Block Explorer
 
-reference: [https://moneroblocks.info/api]https://moneroblocks.info/api
+reference: https://moneroblocks.info/api
+
 ( This may be out of date, the json responses I have been getting have been slightly different than the ones displayed )
 
 ```python
