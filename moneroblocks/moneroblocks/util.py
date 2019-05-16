@@ -13,8 +13,6 @@ def call_api(endpoint):
     url = BASE_URL + endpoint
     try:  # try to get json data
         response = requests.get(url).json()
-    except ValueError:  # if bytes, convert to str
-        response = requests.get(url).content.decode('utf-8')
     except Exception as e:
         response = e
     return handle_response(response)
