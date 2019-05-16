@@ -98,6 +98,8 @@ block_hash = '2fc8ecbe785fd8eaa27835e66106b74a1db568926d6098a09477697d80520970'
 header = blockexplorer.get_block_header(block_hash)
 ```
 
+`get_block_header()` can take either a block height or a block hash as shown in the examples
+
 # Block
 `Block` class fields:
 ```
@@ -138,6 +140,8 @@ block = blockexplorer.get_block(height)
 block_hash = '2fc8ecbe785fd8eaa27835e66106b74a1db568926d6098a09477697d80520970'
 block = blockexplorer.get_block(block_hash)
 ```
+
+`get_block()` can take either a block height or a block hash as shown in the examples
 
 # Transaction
 `Transaction` class fields:
