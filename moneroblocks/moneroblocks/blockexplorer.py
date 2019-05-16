@@ -9,7 +9,7 @@ class MoneroStats:
         self.difficulty = stats['difficulty']
         self.height = stats['height']
         self.hashrate = stats['hashrate']
-        self.current_emission = stats['current_emission']
+        self.total_emission = stats['total_emission']
         self.last_reward = stats['last_reward']
         self.last_timestamp = stats['last_timestamp']
     
@@ -17,7 +17,7 @@ class MoneroStats:
         stats = f"Difficulty: {self.difficulty}\n" \
                 f"Height: {self.height}\n" \
                 f"Hashrate: {self.hashrate}\n" \
-                f"Current Emission: {self.current_emission}\n" \
+                f"Total Emission: {self.total_emission}\n" \
                 f"Last Reward: {self.last_reward}\n" \
                 f"Last Timestamp: {self.last_timestamp}\n"
         return stats
@@ -53,14 +53,13 @@ class Block:
     def __init__(self, block):
         self.status = block['status']
         self.id = block['block_data']['id']
-        self.json_rpc = block['block_data']['json_rpc']
-        header = block['block_data']['result']['block_header']
-        self.block_header = BlockHeader(header)
-        self.result_status = block['result']['status']
-        self.tx_hashes = block['result']['tx_hashes']  # doesn't show
+        self.json_rpc = block['block_data']['jsonrpc']
+        self.block_header = BlockHeader(block['block_data']['result'])
+        #self.tx_hashes = block['tx_hashes']  # not returned in json
 
     def __str__(self):
-        block = f'id: {self.id}'
+        block = f'id: {self.id}\nheader:\n {self.block_header}\n'
+        return block
 
 
 class KeyImage:
@@ -83,10 +82,21 @@ class Transaction:
         self.status = tx['status']
         self.version = tx['transaction_data']['version']
         self.unlock_time = tx['transaction_data']['unlock_time']
-        self.vin = tx['transaction_data']['vin']  # dict
-        self.vout = tx['transaction_data']['vout']  # dict
-        self.extra = tx['transaction_data']['extra']
-        self.signatures = tx['transaction_data']['signatures']
+        self.vin = tx['transaction_data']['vin']  # needs class
+        self.vout = tx['transaction_data']['vout']  # needs class
+        self.extra = tx['transaction_data']['extra'] # needs something
+        self.signatures = tx['transaction_data']['rct_signatures'] # needs class
+        self.rctsig_prunable = tx['transaction_data']['rctsig_prunable']
+
+    def __str__(self):
+        tx = f'version: {self.version}\n' \
+             f'unlock time: {self.unlock_time}\n' \
+             f'vin: {self.vin}\n' \
+             f'vout: {self.vout}\n' \
+             f'extra: {self.extra}\n' \
+             f'rct_sigs: {self.signatures}\n' \
+             f'rctsig_prunable: {self.rctsig_prunable}\n'
+        return tx
 
 
 def _get_current_block_height():
@@ -121,7 +131,7 @@ def get_block_header(arg):
     return BlockHeader(response)
 
 
-def get_block_data(arg):
+def get_block(arg):
     """
     Request a given block data by height or hash
     :param str arg: block height or block hash
@@ -141,13 +151,13 @@ def get_current_block_header():
     return get_block_header(height)
 
 
-def get_current_block_data():
+def get_current_block():
     """
     Request the current block data by height
     :return: an instance of :class:`Block` class
     """
     height = _get_current_block_height()
-    return get_block_data(height)
+    return get_block(height)
 
 
 def get_transaction(hash):
