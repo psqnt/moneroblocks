@@ -12,12 +12,7 @@ pip install moneroblocks
 from moneroblocks import blockexplorer
 ```
 
-# General Statistics
-## get current monero coin stats
-```python
-current_stats = blockexplorer.get_stats()
-```
-`get_stats()` returns an instance of `MoneroStats` class
+# Monero Stats
 
 `MoneroStats` class fields:
 ```
@@ -39,6 +34,12 @@ total_emission = stats.total_emission
 last_reward = stats.last_reward
 last_timestamp = stats.last_timestamp
 ```
+
+## get current monero coin stats
+```python
+current_stats = blockexplorer.get_stats()
+```
+`get_stats()` returns an instance of `MoneroStats` class
 
 # Block Header
 `BlockHeader` class fields:
