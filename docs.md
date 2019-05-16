@@ -10,6 +10,28 @@ from moneroblocks import blockexplorer
 ```python
 current_stats = blockexplorer.get_stats()
 ```
+`get_stats()` returns a `MoneroStats` object.
+
+`MoneroStats` class contains these fields:
+```
++ difficulty
++ height
++ hashrate
++ total_emission
++ last_reward
++ last_timestamp
+```
+Fields can be accessed like any python class variable
+```python
+stats = blockexplorer.get_stats()
+
+difficulty = stats.difficulty
+height = stats.height
+hashrate = stats.hashrate
+total_emission = stats.total_emission
+last_reward = stats.last_reward
+last_timestamp = stats.last_timestamp
+```
 
 ## get most recent block header
 ```python
